@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useQuery } from "react-query";
 
-const useQueryHook = ({ query, params = undefined, callback = {} }) => {
-  const result = useQuery([query.key, params], () => query.fn(params), {
-    ...callback,
+const useQueryHook = ({ query, params = undefined, callbacks = {} }) => {
+  const result = useQuery([query.key, params], () => query.queryFn(params), {
+    ...callbacks,
   });
 
   const status = useMemo(() => {
@@ -24,11 +24,12 @@ const useQueryHook = ({ query, params = undefined, callback = {} }) => {
     result.isLoadingError,
   ]);
 
-  //   const { isLoading, isFetching, isRefetching } = result;
-  //   useEffect(() => {
-  //     if (isLoading || isFetching || isRefetching) showLoading();
-  //     else hideLoading();
-  //   }, [isLoading, isFetching, isRefetching, showLoading, hideLoading]);
+  const { isLoading, isFetching, isRefetching } = result;
+  useEffect(() => {
+    if (isLoading || isFetching || isRefetching) {
+    } else {
+    }
+  }, [isLoading, isFetching, isRefetching]);
 
   const request = result.refetch;
 

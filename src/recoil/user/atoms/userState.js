@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 
 const initialState = {
+  id: "",
   email: "",
   password: "",
   nickname: "",
