@@ -11,7 +11,7 @@ export const METHOD = {
 
 export const BASE_URL = process.env.REACT_APP_API_URL;
 
-const headersConfig = {
+let headersConfig = {
   "Content-Type": "application/json;charset=utf-8",
   "Access-Control-Allow-Origin": "*",
 };
@@ -19,7 +19,7 @@ const headersConfig = {
 const customAxios = () => {
   const request = axios.create();
 
-  const requestApi = async (method, url, data) => {
+  const requestApi = async (method, url, data, header = {}) => {
     let params = {};
 
     method === METHOD.GET
@@ -34,6 +34,7 @@ const customAxios = () => {
       ...params,
       headers: {
         ...headersConfig,
+        ...header,
       },
       timeout: 30000,
     };
