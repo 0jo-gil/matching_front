@@ -1,33 +1,36 @@
-import React from "react";
-import FormInput from "../../components/FormInput";
+import React from 'react';
+import FormInput from '../../components/FormInput';
 
-import { useRecoilState } from "recoil";
-import { loginState, userState } from "../../recoil/user/atoms/userState";
-import { PostSignin } from "../../common/api/user/userApi";
+import { useRecoilState } from 'recoil';
+import { loginState, userState } from '../../recoil/user/atoms/userState';
+import { PostSignin } from '../../common/api/user/userApi';
 
 function Login() {
-  const [userValue, setUserValue] = useRecoilState(userState);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+    const [userValue, setUserValue] = useRecoilState(userState);
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 
-  const onSubmitHandler = () => {
-    const result = PostSignin(userValue)
-      .then((res) => {
-        setIsLoggedIn((prev) => ({
-          ...prev,
-          ...res,
-        }));
-      })
-      .catch((err) => console.error(err));
-  };
+    const onSubmitHandler = async () => {
+        const result = await PostSignin(userValue)
+            .then((res) => {
+                setIsLoggedIn((prev) => ({
+                    ...prev,
+                    ...res,
+                    loginState: true,
+                }));
 
-  return (
-    <div>
-      <FormInput name="email" label={"아이디"} onChange={setUserValue} />
-      <FormInput name="password" label={"패스워드"} onChange={setUserValue} />
+                console.log(isLoggedIn);
+            })
+            .catch((err) => console.error(err));
+    };
 
-      <button onClick={onSubmitHandler}>제출</button>
-    </div>
-  );
+    return (
+        <div>
+            <FormInput name="email" label={'아이디'} onChange={setUserValue} />
+            <FormInput name="password" label={'패스워드'} onChange={setUserValue} />
+
+            <button onClick={onSubmitHandler}>제출</button>
+        </div>
+    );
 }
 
 export default Login;
