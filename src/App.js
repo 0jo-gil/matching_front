@@ -1,11 +1,11 @@
 import "./App.css";
-import { RecoilRoot, useRecoilState } from "recoil";
-import { userState } from "./store/user/atoms/userState";
+import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 
 import PageRouter from "./common/routes";
 import ToastList from "./components/toast/ToastList";
 import { Suspense } from "react";
+import BottomNavigation from "@components/common/BottomNavigation/BottomNavigation";
 
 function App() {
   return (
@@ -14,6 +14,8 @@ function App() {
         <BrowserRouter>
           <PageRouter />
           <ToastList />
+
+          <BottomNavigation />
         </BrowserRouter>
       </Suspense>
     </RecoilRoot>
