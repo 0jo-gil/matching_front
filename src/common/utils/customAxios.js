@@ -12,8 +12,7 @@ export const METHOD = {
 export const BASE_URL = process.env.REACT_APP_API_URL;
 
 let headersConfig = {
-  "Content-Type": "application/json;charset=utf-8",
-  "Access-Control-Allow-Origin": "*",
+  // "Content-Type": "application/json",
 };
 
 const customAxios = () => {
@@ -24,7 +23,7 @@ const customAxios = () => {
 
     method === METHOD.GET
       ? (params = { params: JSON.stringify(data) })
-      : (params = { data: JSON.stringify(data) });
+      : (params = { data: data });
 
     if (!data) params = {};
 

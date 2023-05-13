@@ -1,4 +1,9 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
+
+export const PageTitle = styled.div`
+  font-size: 20px;
+  color: #000;
+`;
 
 export const fadeIn = keyframes`
 from {

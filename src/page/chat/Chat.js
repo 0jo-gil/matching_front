@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { io } from "socket.io-client";
 import * as Stompjs from "@stomp/stompjs";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../recoil/user/atoms/userState";
 import useQueryHook from "../../common/hooks/useQueryHook";
 import { getChatMessageList } from "../../common/api/chat/chatApi";
 import axios from "axios";
@@ -12,7 +11,6 @@ const Chat = () => {
   const client = useRef({});
   const ROOM_ID = 1;
 
-  const userInfo = useRecoilValue(userState);
   const [message, setMessage] = useState("");
   const [chatList, setChatList] = useState([]);
   const [newMessage, setNewMessage] = useState([]);

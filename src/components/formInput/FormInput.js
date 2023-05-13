@@ -1,6 +1,4 @@
-import React from "react";
-import { useRecoilState } from "recoil";
-import { userState } from "../recoil/user/atoms/userState";
+import React, { useCallback } from "react";
 
 function FormInput({ name, value, label, onChange }) {
   const onChangeHandler = (e) => {
@@ -12,7 +10,7 @@ function FormInput({ name, value, label, onChange }) {
   };
 
   return (
-    <>
+    <div>
       {label && <label htmlFor={name}>{label}</label>}
       <input
         type={name === "password" ? "password" : "text"}
@@ -20,7 +18,7 @@ function FormInput({ name, value, label, onChange }) {
         value={value}
         onChange={onChangeHandler}
       />
-    </>
+    </div>
   );
 }
 
