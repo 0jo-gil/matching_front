@@ -2,17 +2,23 @@ import React from "react";
 import { toastState } from "../../store/toast/atom/toast";
 import ToastItem from "./ToastItem";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 
 const ToastList = () => {
   const toasts = useRecoilValue(toastState);
 
   return (
-    <div>
+    <ToastWrap>
       {toasts.map((toast) => (
         <ToastItem key={toast.id} {...toast} />
       ))}
-    </div>
+    </ToastWrap>
   );
 };
 
 export default ToastList;
+
+const ToastWrap = styled.div`
+  position: relative;
+  z-index: 1000;
+`;

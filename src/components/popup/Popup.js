@@ -3,17 +3,27 @@ import { popupState } from "@store/popup/atom/popupState";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import PopupItem from "./PopupItem";
+import usePopup from "@hooks/usePopup";
 
 const Popup = () => {
   const popups = useRecoilValue(popupState);
-  const [isClosing, setIsClosing] = useState(true);
+  const { removePopup } = usePopup();
+
+  const closeHandler = (id) => {
+    removePopup(id);
+  };
 
   return (
-    <Dimmed isClosing={isClosing}>
-      {popups?.map((popup) => (
-        <PopupItem key={popup.id} {...popup} />
+    <>
+      {popups?.list?.map((popup) => (
+        <Dimmed
+          visible={popups?.visible}
+          onClick={() => closeHandler(popup.id)}
+        >
+          <PopupItem key={popup.id} {...popup} />
+        </Dimmed>
       ))}
-    </Dimmed>
+    </>
   );
 };
 
@@ -26,6 +36,6 @@ const Dimmed = styled.div`
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.7);
-  display: ${(props) => (props.isClosing ? "none" : "block")};
+  display: ${(props) => (props.visible ? "block" : "none")};
   z-index: 1000;
 `;

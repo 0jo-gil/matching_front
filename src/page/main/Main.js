@@ -25,10 +25,22 @@ const Main = () => {
     });
   };
 
+  const logoutHandler = () => {
+    setIsLoggedIn({
+      email: "",
+      name: "",
+      nickname: "",
+      profileImageUrl: "",
+      accessToken: "",
+      loginState: false,
+    });
+  };
+
   return (
     <div>
       <h1>MAIN</h1>
       <button onClick={popupHandler}>글쓰기</button>
+      <button onClick={logoutHandler}>로그아웃</button>
     </div>
   );
 };

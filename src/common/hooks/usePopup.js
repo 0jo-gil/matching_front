@@ -6,19 +6,31 @@ const usePopup = () => {
   const [popups, setPopups] = useRecoilState(popupState);
 
   const removePopup = (id) => {
-    setPopups((prev) => prev?.filter((popup) => popup.id !== id));
+    setPopups((prev) => {
+      let result = prev?.list.filter((popup) => popup.id !== id);
+
+      return {
+        ...prev,
+        visible: false,
+        list: [...result],
+      };
+    });
   };
 
   const showPopup = (popup) => {
     const popupId = getRandomId();
 
-    setPopups((prev) => [
+    setPopups((prev) => ({
       ...prev,
-      {
-        ...popup,
-        id: popupId,
-      },
-    ]);
+      visible: true,
+      list: [
+        ...prev?.list,
+        {
+          ...popup,
+          id: popupId,
+        },
+      ],
+    }));
   };
 
   return { popups, showPopup, removePopup };
