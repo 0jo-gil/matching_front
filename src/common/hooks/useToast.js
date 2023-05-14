@@ -23,8 +23,6 @@ const useToast = () => {
       },
     ]);
 
-    console.log(toast.type);
-
     if (toast.type === "login") return;
 
     setTimeout(() => removeToast(toastId), 500 + (toast.duration ?? 1000));

@@ -6,6 +6,7 @@ import PageRouter from "./common/routes";
 import ToastList from "./components/toast/ToastList";
 import { Suspense } from "react";
 import BottomNavigation from "@components/common/BottomNavigation/BottomNavigation";
+import Popup from "@components/popup/Popup";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <BrowserRouter>
           <PageRouter />
           <ToastList />
+          <Popup />
 
           <BottomNavigation />
         </BrowserRouter>
