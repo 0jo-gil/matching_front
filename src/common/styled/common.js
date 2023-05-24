@@ -24,3 +24,16 @@ to {
     opacity: 0;
 }
 `;
+
+// nav tab
+export const TabWrap = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+export const TabList = styled.div`
+  flex: 1;
+  text-align: center;
+  border-bottom: ${(props) => props.isActive && "3px solid #000"};
+  padding: 10px 0;
+`;

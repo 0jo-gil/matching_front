@@ -46,3 +46,9 @@ export const signupFormState = atom({
   key: "signupState",
   default: signupFormData,
 });
+
+// 로그인 확인
+export const isAuthenticationState = atom({
+  key: "isAuthenticationState",
+  default: false,
+});

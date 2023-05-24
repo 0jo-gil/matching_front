@@ -7,12 +7,14 @@ import ToastList from "./components/toast/ToastList";
 import { Suspense } from "react";
 import BottomNavigation from "@components/common/BottomNavigation/BottomNavigation";
 import Popup from "@components/popup/Popup";
+import Header from "@components/common/header/Header";
 
 function App() {
   return (
     <RecoilRoot>
       <Suspense fallback={<div>LOADING...</div>}>
         <BrowserRouter>
+          <Header />
           <PageRouter />
           <ToastList />
           <Popup />
