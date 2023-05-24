@@ -1,32 +1,32 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState } from 'recoil';
 
-import { toastState } from "../../store/toast/atom/toast";
-import { getRandomId } from "../utils/etc";
+import { toastState } from '@state/toast/atom/toast';
+import { getRandomId } from '@utils/etc';
 
 const useToast = () => {
-  const [toasts, setToasts] = useRecoilState(toastState);
+    const [toasts, setToasts] = useRecoilState(toastState);
 
-  const removeToast = (id) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id));
-  };
+    const removeToast = (id) => {
+        setToasts((prev) => prev.filter((toast) => toast.id !== id));
+    };
 
-  const firedToast = (toast) => {
-    const toastId = getRandomId();
+    const firedToast = (toast) => {
+        const toastId = getRandomId();
 
-    setToasts((prev) => [
-      ...prev,
-      {
-        ...toast,
-        id: toastId,
-        duration: toast.duration ?? 1000,
-        type: toast.type,
-      },
-    ]);
+        setToasts((prev) => [
+            ...prev,
+            {
+                ...toast,
+                id: toastId,
+                duration: toast.duration ?? 1000,
+                type: toast.type,
+            },
+        ]);
 
-    setTimeout(() => removeToast(toastId), 500 + (toast.duration ?? 1000));
-  };
+        setTimeout(() => removeToast(toastId), 500 + (toast.duration ?? 1000));
+    };
 
-  return { toasts, firedToast };
+    return { toasts, firedToast };
 };
 
 export default useToast;
