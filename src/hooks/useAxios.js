@@ -1,49 +1,69 @@
-import axios from "axios";
-import { useCallback, useState } from "react";
+import axios from 'axios';
+import { useCallback, useState } from 'react';
+import { ACCESS_TOKEN_KEY } from '@utils/constant';
 
 export const METHOD = {
-  GET: "get",
-  POST: "post",
-  PUT: "put",
-  DELETE: "delete",
-  PATCH: "patch",
+    GET: 'get',
+    POST: 'post',
+    PUT: 'put',
+    DELETE: 'delete',
+    PATCH: 'patch',
 };
 
 export const BASE_URL = process.env.REACT_APP_API_URL;
 
 const headersConfig = {
-  "Content-Type": "application/json;charset=utf-8",
-  "Access-Control-Allow-Origin": "*",
+    'Content-Type': 'application/json;charset=utf-8',
+    'Access-Control-Allow-Origin': '*',
 };
 
 const useAxios = () => {
-  const request = axios.create();
+    const client = axios.create();
 
-  const requestApi = useCallback((method, url, data) => {
-    let params = {};
+    // 토큰 에러 시 재인증 요청
+    client.interceptors.response.use(
+        (response) => {
+            if (response) {
+                localStorage.setItem(ACCESS_TOKEN_KEY, response?.data?.accessToken);
+            }
 
-    method === METHOD.GET
-      ? (params = { params: JSON.stringify(data) })
-      : (params = { data: JSON.stringify(data) });
+            return response;
+        },
+        async (error) => {
+            const {
+                config,
+                response: { status },
+            } = error;
 
-    if (!data) params = {};
+            if (status === 401) {
+                const originalRequest = config;
+            }
+        }
+    );
 
-    const axiosParams = {
-      method,
-      url: `${BASE_URL}${url}`,
-      ...params,
-      headers: {
-        ...headersConfig,
-      },
-      timeout: 30000,
-    };
+    const requestApi = useCallback((method, url, data) => {
+        let params = {};
 
-    const result = request(axiosParams);
+        method === METHOD.GET ? (params = { params: JSON.stringify(data) }) : (params = { data: JSON.stringify(data) });
 
-    return result.data;
-  }, []);
+        if (!data) params = {};
 
-  return { requestApi };
+        const axiosParams = {
+            method,
+            url: `${BASE_URL}${url}`,
+            ...params,
+            headers: {
+                ...headersConfig,
+            },
+            timeout: 30000,
+        };
+
+        const result = client(axiosParams);
+
+        return result.data;
+    }, []);
+
+    return { requestApi };
 };
 
 export default useAxios;
