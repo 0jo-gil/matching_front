@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useCallback, useState } from 'react';
 import { ACCESS_TOKEN_KEY } from '@utils/constant';
+import useReissue from './useReissue';
+import useAuthentication from './useAuthentication';
 
 export const METHOD = {
     GET: 'get',
@@ -18,7 +20,30 @@ const headersConfig = {
 };
 
 const useAxios = () => {
+    const { reissue } = useReissue();
+    const { setAccessToken } = useAuthentication();
+
     const client = axios.create();
+
+    // 요청
+    client.interceptors.request.use(
+        (config) => {
+            let accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+
+            if (!accessToken) {
+                config.headers.Authorization = null;
+                return config;
+            }
+
+            if (accessToken && config.headers) {
+                config.headers.Authorization = `bearer ${accessToken}`;
+                return config;
+            }
+        },
+        (error) => {
+            return Promise.reject(error);
+        }
+    );
 
     // 토큰 에러 시 재인증 요청
     client.interceptors.response.use(
@@ -36,8 +61,16 @@ const useAxios = () => {
             } = error;
 
             if (status === 401) {
-                const originalRequest = config;
+                const { data } = reissue();
+
+                config.headers.Authorization = `bearer ${data?.accessToken}`;
+
+                setAccessToken(data?.accessToken);
+
+                return client(config);
             }
+
+            return Promise.reject(error);
         }
     );
 
