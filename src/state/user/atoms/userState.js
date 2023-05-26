@@ -13,11 +13,11 @@ const loginUserState = {
 
 // 로그인 폼
 const loginFormData = {
-  id: "",
+  // id: "",
   email: "",
   password: "",
-  nickname: "",
-  name: "",
+  // nickname: "",
+  // name: "",
 };
 
 // 회원가입 폼

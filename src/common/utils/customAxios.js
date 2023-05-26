@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useCallback, useState } from "react";
 
 export const METHOD = {
   GET: "get",

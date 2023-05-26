@@ -1,31 +1,54 @@
-import { isAuthenticationState, loginState } from '@state/user/atoms/userState';
-import { ACCESS_TOKEN_KEY } from '@utils/constant';
-import { useCallback } from 'react';
-import { useRecoilState } from 'recoil';
+import {
+  isAuthenticationState,
+  loginFormState,
+  loginState,
+} from "@state/user/atoms/userState";
+import { ACCESS_TOKEN_KEY } from "@utils/constant";
+import { useCallback } from "react";
+import { useRecoilState } from "recoil";
+import useCommonQuery from "./useCommonQuery";
+import { userApi } from "@services/user/userApi";
 
 const useAuthentication = () => {
-    // 회원 인증 훅
-    const [loginUserState, setLoginUserState] = useRecoilState(loginState);
-    const [isAuthentication, setIsAuthentication] = useRecoilState(isAuthenticationState);
+  // 회원 인증 훅
+  const [loginUserState, setLoginUserState] = useRecoilState(loginState);
+  const [isAuthentication, setIsAuthentication] = useRecoilState(
+    isAuthenticationState
+  );
+  const [loginFormValue, setLoginFormValue] = useRecoilState(loginFormState);
 
-    /**
-     * 로그인 액세스 토큰 저장
-     */
-    const setAccessToken = useCallback((token) => {
-        localStorage.setItem(ACCESS_TOKEN_KEY, token);
-    }, []);
+  /**
+   * 로그인 액세스 토큰 저장
+   */
+  const setAccessToken = useCallback((token) => {
+    localStorage.setItem(ACCESS_TOKEN_KEY, token);
+  }, []);
 
-    const removeAccessToken = useCallback(() => {
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
-    }, []);
+  const removeAccessToken = useCallback(() => {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+  }, []);
 
-    return {
-        data: {},
-        action: {
-            setAccessToken,
-            removeAccessToken,
-        },
-    };
+  const { request: userSignin } = useCommonQuery({
+    query: userApi.signin,
+    params: loginFormValue,
+    callbacks: {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    },
+  });
+
+  return {
+    data: {},
+    action: {
+      setAccessToken,
+      removeAccessToken,
+      userSignin,
+    },
+  };
 };
 
 export default useAuthentication;
