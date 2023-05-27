@@ -31,7 +31,6 @@ const Main = () => {
 
   return (
     <div>
-      <h1>MAIN</h1>
       <STabWrap className="tab-wrap">
         {mainTabList?.map((list, index) => (
           <STabList
