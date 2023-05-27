@@ -45,6 +45,13 @@ const useAuthentication = () => {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
   }, []);
 
+  // 회원 정보 초기화
+  const userInitState = useCallback(() => {
+    removeAccessToken();
+    setIsAuthentication(false);
+    setLoginUserState();
+  }, []);
+
   // 로그인
   const { request: userSignin } = useCommonQuery({
     query: signin,
@@ -87,7 +94,7 @@ const useAuthentication = () => {
     params: {},
     callbacks: {
       onSuccess: () => {
-        console.log("logout");
+        userInitState();
         navigate("/");
       },
       onError: (err) => {
