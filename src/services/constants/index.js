@@ -11,6 +11,7 @@ const API_URL = {
     SIGNIN: "/api/v1/member/sign-in",
     SIGNUP: "/api/v1/member/signup",
     LOGOUT: "/api/v1/member/logout",
+    REISSUE: "/api/v1/member/reissue",
   },
   POST: {
     WRITE: "/api/v1/post/write",
