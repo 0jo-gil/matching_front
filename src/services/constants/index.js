@@ -10,6 +10,7 @@ const API_URL = {
   USER: {
     SIGNIN: "/api/v1/member/sign-in",
     SIGNUP: "/api/v1/member/signup",
+    LOGOUT: "/api/v1/member/logout",
   },
   POST: {
     WRITE: "/api/v1/post/write",
