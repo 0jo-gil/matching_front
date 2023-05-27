@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
-import useToast from "@hooks/useToast";
 import { Link, Outlet } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { loginState } from "@state/user/atoms/userState";
 import usePopup from "@hooks/usePopup";
 import useTab from "@hooks/useTab";
-import { TabList, TabWrap } from "@styled/common";
+import { STabList, STabWrap } from "@styled/common";
 
 const mainTabList = [
   {
@@ -23,19 +20,8 @@ const mainTabList = [
 ];
 
 const Main = () => {
-  const { firedToast } = useToast();
   const { showPopup } = usePopup();
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const { currentItem, changeItem } = useTab(0, mainTabList);
-
-  useEffect(() => {
-    if (isLoggedIn?.loginState) return;
-
-    firedToast({
-      content: <Link to="/auth/login">가입 / 로그인하기</Link>,
-      type: "login",
-    });
-  }, [isLoggedIn?.loginState]);
 
   const popupHandler = () => {
     showPopup({
@@ -43,32 +29,20 @@ const Main = () => {
     });
   };
 
-  const logoutHandler = () => {
-    setIsLoggedIn({
-      email: "",
-      name: "",
-      nickname: "",
-      profileImageUrl: "",
-      accessToken: "",
-      loginState: false,
-    });
-  };
-
   return (
     <div>
-      <h1>MAIN</h1>
-      <TabWrap className="tab-wrap">
+      <STabWrap className="tab-wrap">
         {mainTabList?.map((list, index) => (
-          <TabList
+          <STabList
             isActive={list.title === currentItem.title}
             // className={list.title === currentItem.title && "active"}
             key={index}
             onClick={() => changeItem(index)}
           >
             {list.title}
-          </TabList>
+          </STabList>
         ))}
-      </TabWrap>
+      </STabWrap>
 
       <Outlet />
 

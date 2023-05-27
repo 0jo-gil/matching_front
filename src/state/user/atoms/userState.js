@@ -8,16 +8,12 @@ const loginUserState = {
   nickname: "",
   profileImageUrl: "",
   accessToken: "",
-  loginState: false,
 };
 
 // 로그인 폼
-const loginFormData = {
-  id: "",
+const signinFormData = {
   email: "",
   password: "",
-  nickname: "",
-  name: "",
 };
 
 // 회원가입 폼
@@ -37,9 +33,9 @@ export const loginState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const loginFormState = atom({
-  key: "loginFormState",
-  default: loginFormData,
+export const signinFormState = atom({
+  key: "signinState",
+  default: signinFormData,
 });
 
 export const signupFormState = atom({

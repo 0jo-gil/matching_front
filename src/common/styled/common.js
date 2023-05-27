@@ -1,8 +1,8 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 export const PageTitle = styled.div`
-  font-size: 20px;
-  color: #000;
+    font-size: 20px;
+    color: #000;
 `;
 
 export const fadeIn = keyframes`
@@ -26,14 +26,14 @@ to {
 `;
 
 // nav tab
-export const TabWrap = styled.div`
-  width: 100%;
-  display: flex;
+export const STabWrap = styled.div`
+    width: 100%;
+    display: flex;
 `;
 
-export const TabList = styled.div`
-  flex: 1;
-  text-align: center;
-  border-bottom: ${(props) => props.isActive && "3px solid #000"};
-  padding: 10px 0;
+export const STabList = styled.div`
+    flex: 1;
+    text-align: center;
+    border-bottom: ${(props) => props.isActive && '3px solid #000'};
+    padding: 10px 0;
 `;

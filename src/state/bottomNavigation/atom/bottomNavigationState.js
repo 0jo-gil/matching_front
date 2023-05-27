@@ -4,7 +4,7 @@ import { atom } from "recoil";
 const bottomNaviList = [
   {
     name: "홈",
-    src: "/",
+    src: "/main",
     iconSrc: "",
   },
   {
