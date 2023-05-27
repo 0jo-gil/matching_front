@@ -22,10 +22,16 @@ const useUserApi = () => {
     queryFn: (params) => requestApi(METHOD.POST, USER.LOGOUT),
   };
 
+  const reissue = {
+    key: "reissue",
+    queryFn: (params) => requestApi(METHOD.POST, USER.REISSUE),
+  };
+
   return {
     signin,
     signup,
     logout,
+    reissue,
   };
 };
 

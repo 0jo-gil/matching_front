@@ -1,8 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback } from "react";
+import useCommonQuery from "./useCommonQuery";
 
-const useReissue = () => {
-    const reissue = useCallback(() => {}, []);
-    return { reissue };
-};
+const useReissue = () => {};
 
 export default useReissue;

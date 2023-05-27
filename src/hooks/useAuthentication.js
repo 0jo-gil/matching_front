@@ -24,7 +24,7 @@ const useAuthentication = () => {
 
   const navigate = useNavigate();
 
-  const { signin, signup, logout } = useUserApi();
+  const { signin, signup, logout, reissue } = useUserApi();
 
   useEffect(() => {
     if (isAuthentication) return;
@@ -38,7 +38,7 @@ const useAuthentication = () => {
    * 로그인 액세스 토큰 저장
    */
   const setAccessToken = useCallback((token) => {
-    localStorage.setItem(ACCESS_TOKEN_KEY, token);
+    localStorage.setItem(ACCESS_TOKEN_KEY, `${token}`);
   }, []);
 
   const removeAccessToken = useCallback(() => {
@@ -91,7 +91,6 @@ const useAuthentication = () => {
   // 로그아웃
   const { request: userLogout } = useCommonQuery({
     query: logout,
-    params: {},
     callbacks: {
       onSuccess: () => {
         userInitState();
@@ -103,12 +102,26 @@ const useAuthentication = () => {
     },
   });
 
+  // 토큰 재발행
+  // const { request: userReissue } = useCommonQuery({
+  //   query: reissue,
+  //   callbacks: {
+  //     onSuccess: (response) => {
+  //       console.log(response);
+  //     },
+  //     onError: (err) => {
+  //       console.log(err);
+  //     },
+  //   },
+  // });
+
   return {
     data: { loginUserState, isAuthentication },
     action: {
       userSignin,
       userSignup,
       userLogout,
+      // userReissue,
     },
   };
 };
