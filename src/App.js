@@ -9,6 +9,7 @@ import BottomNavigation from "@components/common/BottomNavigation/BottomNavigati
 import Popup from "@components/popup/Popup";
 import Header from "@components/common/header/Header";
 import { QueryClient, QueryClientProvider } from "react-query";
+import GlobalStyles from "@styled/global";
 
 function App() {
   const queryClient = new QueryClient({
@@ -21,6 +22,7 @@ function App() {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
+        <GlobalStyles />
         <Suspense fallback={<div>LOADING...</div>}>
           <BrowserRouter>
             <Header />

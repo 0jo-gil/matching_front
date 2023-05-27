@@ -16,6 +16,9 @@ const API_URL = {
     WRITE: "/api/v1/post/write",
     CATEGORY: "/api/v1/category",
   },
+  CATEGORY: {
+    LIST: "/api/v1/category",
+  },
 };
 
 export default API_URL;

@@ -9237,6 +9237,11 @@ styled-components@^5.3.10:
     shallowequal "^1.1.0"
     supports-color "^5.5.0"
 
+styled-reset@^4.4.7:
+  version "4.4.7"
+  resolved "https://registry.npmjs.org/styled-reset/-/styled-reset-4.4.7.tgz"
+  integrity sha512-OxtLqP9/2mXoI8WYa0NrJuTyvVziT+fi0Dp8go5CgTGzSVPQVo5ggaxl1tK+l08ynrVImKswSiDJFaVHxBKJuQ==
+
 stylehacks@^5.1.1:
   version "5.1.1"
   resolved "https://registry.npmjs.org/stylehacks/-/stylehacks-5.1.1.tgz"
