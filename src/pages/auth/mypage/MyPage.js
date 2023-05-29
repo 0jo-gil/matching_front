@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { isAuthenticationState, loginState } from "@state/user/atoms/userState";
-import { PageTitle } from "@styled/common";
+import { SPageTitle } from "@styled/common";
 import { useRecoilState } from "recoil";
 import { ProfileImg } from "./style";
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ function MyPage() {
 
   return (
     <div>
-      <PageTitle>마이페이지</PageTitle>
+      <SPageTitle>마이페이지</SPageTitle>
 
       {isAuthentication ? (
         <div>

@@ -20,6 +20,16 @@ const GlobalStyles = createGlobalStyle`
         position: relative;
         background: #fff;
     }
+
+
+
+    // 공통 input
+    input {
+        width: 100%;
+        border: 1px solid #aaa;
+        padding: 0.7vw;
+        border-radius: 0.3vw;
+    }
 `;
 
 export default GlobalStyles;

@@ -15,11 +15,11 @@ function Login() {
 
   return (
     <div>
-      <FormInput name="email" label={"아이디"} onChange={setLoginFormValue} />
+      <FormInput name="email" label={"아이디"} setValue={setLoginFormValue} />
       <FormInput
         name="password"
         label={"패스워드"}
-        onChange={setLoginFormValue}
+        setValue={setLoginFormValue}
       />
       <Link to="/auth/signup">회원가입</Link>
       <button onClick={onSubmitHandler}>제출</button>

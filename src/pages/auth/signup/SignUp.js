@@ -1,5 +1,5 @@
 import React from "react";
-import { PageTitle } from "@styled/common";
+import { SPageTitle } from "@styled/common";
 import FormInput from "@components/formInput/FormInput";
 import FormFile from "@components/formInput/FormFile";
 import { useRecoilState } from "recoil";
@@ -25,7 +25,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <PageTitle>회원가입</PageTitle>
+      <SPageTitle>회원가입</SPageTitle>
 
       <FormInput name="email" label={"이메일"} onChange={setSignupFormValue} />
       <FormInput

@@ -1,24 +1,38 @@
+import { SFormWrap, SInputElement, SInputLabel } from "./style";
 import React, { useCallback } from "react";
+import styled from "styled-components";
 
-function FormInput({ name, value, label, onChange }) {
+function FormInput({
+  name,
+  value,
+  placeholder,
+  label,
+  setValue,
+  condition = false,
+}) {
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-    onChange((prev) => ({
+    setValue((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
   return (
-    <div>
-      {label && <label htmlFor={name}>{label}</label>}
-      <input
+    <SFormWrap>
+      {label && (
+        <SInputLabel htmlFor={name} test={condition}>
+          {label}
+        </SInputLabel>
+      )}
+      <SInputElement
         type={name === "password" ? "password" : "text"}
         name={name}
         value={value}
         onChange={onChangeHandler}
+        placeholder={placeholder}
       />
-    </div>
+    </SFormWrap>
   );
 }
 

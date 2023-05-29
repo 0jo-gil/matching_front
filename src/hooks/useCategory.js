@@ -18,8 +18,9 @@ const useCategory = () => {
     params: {},
     callbacks: {
       onSuccess: (response) => {
+        if (!response) return;
         const { data } = response;
-        setCategoryListValue([...data]);
+        setCategoryListValue([...response]);
       },
       onError: (err) => {
         console.log(err);

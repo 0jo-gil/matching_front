@@ -24,7 +24,7 @@ const useAxios = () => {
   const client = axios.create();
   const { USER } = API_URL;
 
-  // 요청
+  // // 요청
   client.interceptors.request.use(
     (config) => {
       let accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -44,46 +44,49 @@ const useAxios = () => {
     }
   );
 
-  // 토큰 에러 시 재인증 요청
-  client.interceptors.response.use(
-    (response) => {
-      if (response) {
-        localStorage.setItem(ACCESS_TOKEN_KEY, response?.data?.accessToken);
-      }
+  // // 토큰 에러 시 재인증 요청
+  // client.interceptors.response.use(
+  //   (response) => {
+  //     if (response) {
+  //       localStorage.setItem(ACCESS_TOKEN_KEY, response?.data?.accessToken);
+  //     }
 
-      const { data } = client.post(USER.REISSUE);
-      console.log(client.post(USER.REISSUE));
-      return response;
-    },
-    async (error) => {
-      const {
-        config,
-        response: { status },
-      } = error;
+  //     const { data } = client.post(USER.REISSUE);
+  //     console.log(client.post(USER.REISSUE));
+  //     return response;
+  //   },
+  //   async (error) => {
+  //     const {
+  //       config,
+  //       response: { status },
+  //     } = error;
 
-      if (status === 401) {
-        // 토큰 재발행 로직 수정 필요
+  //     if (status === 401) {
+  //       // 토큰 재발행 로직 수정 필요
 
-        // const { data } = client.post(USER.REISSUE);
-        // config.headers.Authorization = `bearer ${data?.accessToken}`;
+  //       // const { data } = client.post(USER.REISSUE);
+  //       // config.headers.Authorization = `bearer ${data?.accessToken}`;
 
-        // setAccessToken(data?.accessToken);
+  //       // setAccessToken(data?.accessToken);
 
-        return client(config);
-      }
+  //       return client(config);
+  //     }
 
-      return Promise.reject(error);
-    }
-  );
+  //     return Promise.reject(error);
+  //   }
+  // );
 
   const requestApi = useCallback(async (method, url, data, header = {}) => {
     let params = {};
 
     method === METHOD.GET
       ? (params = { params: JSON.stringify(data) })
-      : (params = { data: JSON.stringify(data) });
+      : (params = { data: data });
+    // : (params = { data: JSON.stringify(data) });
 
     if (!data) params = {};
+
+    console.log(params);
 
     const axiosParams = {
       method,

@@ -1,10 +1,10 @@
-import { PageTitle } from "@styled/common";
+import { SPageTitle } from "@styled/common";
 import React from "react";
 
 function PostList() {
   return (
     <div>
-      <PageTitle>포스트</PageTitle>
+      <SPageTitle>포스트</SPageTitle>
     </div>
   );
 }

@@ -6,11 +6,16 @@ const postFormData = {
   startedAt: "",
   endedAt: "",
   detail: "", // 목표
-  category: 0,
-  file: [],
+  // category: 2,
+  file: null,
 };
 
 export const postFormState = atom({
   key: "postFormState",
   default: postFormData,
+});
+
+export const postFormDataState = atom({
+  key: "postFormDataState",
+  default: null,
 });

@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-import { SDescText, SFormElementWrap, SInputRadio, SRadioLabel } from "./style";
+import { SDescText, SInputRadio, SRadioLabel, SFormWrap } from "./style";
+import { SFlexBox } from "@styled/common";
 
 const FormRadio = ({
   desc = null,
@@ -9,22 +9,24 @@ const FormRadio = ({
   list = [],
 }) => {
   return (
-    <SFormElementWrap>
+    <SFormWrap>
       {desc && <SDescText>{desc}</SDescText>}
-      {list.length > 0 &&
-        list?.map((item, index) => (
-          <>
-            <SInputRadio
-              type="radio"
-              name={name}
-              id={`${name}-${item.id}`}
-            ></SInputRadio>
-            <SRadioLabel htmlFor={`${name}-${item.id}`}>
-              {item.categoryName}
-            </SRadioLabel>
-          </>
-        ))}
-    </SFormElementWrap>
+      <SFlexBox>
+        {list.length > 0 &&
+          list?.map((item, index) => (
+            <>
+              <SInputRadio
+                type="radio"
+                name={name}
+                id={`${name}-${item.id}`}
+              ></SInputRadio>
+              <SRadioLabel htmlFor={`${name}-${item.id}`}>
+                {item.categoryName}
+              </SRadioLabel>
+            </>
+          ))}
+      </SFlexBox>
+    </SFormWrap>
   );
 };
 

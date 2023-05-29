@@ -1,16 +1,18 @@
 import { useCallback } from "react";
 
-function FormFile({ name, value, label, type, onChange }) {
+function FormFile({ name, value, label, type, setValue }) {
   const onChangeHandler = useCallback(
     (e) => {
       let fileList = e.target.files;
+      console.log(fileList);
 
-      let result = Object.values(fileList)?.map((file) => {
-        onChange((prev) => ({
-          ...prev,
-          [name]: file,
-        }));
-      });
+      let newFiles = [];
+      Array.from(fileList).forEach((file) => newFiles.push(file));
+
+      setValue((prev) => ({
+        ...prev,
+        [name]: [...newFiles],
+      }));
     },
     [value]
   );
