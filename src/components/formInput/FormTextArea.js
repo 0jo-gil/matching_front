@@ -6,13 +6,26 @@ const FormTextArea = ({
   value,
   label,
   placeholder,
-  onChange,
+  setValue,
   condition = false,
 }) => {
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <SFormWrap>
       {label && <SInputLabel>{label}</SInputLabel>}
-      <STextArea name={name} value={value} placeholder={placeholder} />
+      <STextArea
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChangeHandler}
+      />
     </SFormWrap>
   );
 };

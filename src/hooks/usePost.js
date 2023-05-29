@@ -1,16 +1,20 @@
 import usePostApi from "@services/post/postApi";
 import useCommonQuery from "./useCommonQuery";
 import { useRecoilState } from "recoil";
-import { postFormDataState, postFormState } from "@state/post/atom/postState";
+import {
+  postDetailState,
+  postFormDataState,
+  postFormState,
+} from "@state/post/atom/postState";
 import { useNavigate, useParams } from "react-router-dom";
 
 const usePost = () => {
   const { writePost, getDetailPost } = usePostApi();
   const [postFormData, setPostFormData] = useRecoilState(postFormDataState);
+  const [postDetailData, setPostDetailData] = useRecoilState(postDetailState);
 
   const navigate = useNavigate();
   const { postId } = useParams();
-  console.log(postId);
 
   // 글쓰기
   const { request: writePostHandler } = useCommonQuery({
@@ -33,7 +37,7 @@ const usePost = () => {
     params: { id: postId },
     callbacks: {
       onSuccess: (response) => {
-        console.log(response);
+        setPostDetailData(response?.data);
       },
       onError: (error) => {
         console.log(error);
@@ -41,7 +45,7 @@ const usePost = () => {
     },
   });
   return {
-    data: {},
+    data: { postDetailData },
     action: { writePostHandler, getDetailPostHandler },
   };
 };

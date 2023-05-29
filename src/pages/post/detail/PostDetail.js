@@ -4,6 +4,7 @@ import usePost from "@hooks/usePost";
 
 const PostDetail = () => {
   const {
+    data: { postDetailData },
     action: { getDetailPostHandler },
   } = usePost();
 
@@ -11,7 +12,18 @@ const PostDetail = () => {
     getDetailPostHandler();
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      {postDetailData && (
+        <>
+          <div>{postDetailData?.title}</div>
+          <div>{postDetailData?.content}</div>
+          <div>{postDetailData?.author}</div>
+          <div>{postDetailData?.createdAt}</div>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default PostDetail;

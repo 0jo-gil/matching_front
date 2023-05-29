@@ -19,3 +19,8 @@ export const postFormDataState = atom({
   key: "postFormDataState",
   default: null,
 });
+
+export const postDetailState = atom({
+  key: "postDetailState",
+  default: null,
+});

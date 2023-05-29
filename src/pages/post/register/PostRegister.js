@@ -38,6 +38,7 @@ function PostRegister() {
           formData.append("file", list);
         }
       }
+
       resolve(setPostFormData(formData));
     }).then(() => {
       console.log(postFormData);
@@ -69,15 +70,17 @@ function PostRegister() {
         setValue={setPostForm}
       />
       <FormInput
-        name="datail"
+        name="detail"
         label={"목표"}
         placeholder={"예) 1일 1커밋 도전"}
         setValue={setPostForm}
       />
 
       <FormTextArea
+        name="content"
         label="설명"
         placeholder="예) 깃허브 1일 1커미 실천하고 인증하기"
+        setValue={setPostForm}
       />
 
       <FormFile name="file" setValue={setPostForm} />
