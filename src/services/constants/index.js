@@ -15,6 +15,7 @@ const API_URL = {
   },
   POST: {
     WRITE: "/api/v1/post/write",
+    DETAIL: (params) => `/api/v1/post/${params.id}`,
     CATEGORY: "/api/v1/category",
   },
   CATEGORY: {

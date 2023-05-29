@@ -13,8 +13,14 @@ const usePostApi = () => {
       }),
   };
 
+  const getDetailPost = {
+    key: "getDetailPost",
+    queryFn: (params) => requestApi(METHOD.GET, POST.DETAIL(params)),
+  };
+
   return {
     writePost,
+    getDetailPost,
   };
 };
 

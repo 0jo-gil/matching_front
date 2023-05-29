@@ -83,6 +83,7 @@ function PostRegister() {
       <FormFile name="file" setValue={setPostForm} />
 
       <button onClick={onSubmitHandler}>등록하기</button>
+      {/* <Editor setValue={setPostForm} /> */}
     </SWrap>
   );
 }
