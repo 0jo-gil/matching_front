@@ -1,7 +1,5 @@
 import DatePicker from "@components/datepicker/DatePicker";
-import Editor from "@components/editor/Editor";
 import FormInput from "@components/formInput/FormInput";
-import FormSelect from "@components/formInput/FormSelect";
 import { postFormDataState, postFormState } from "@state/post/atom/postState";
 import { SPageTitle, SWrap } from "@styled/common";
 import React, { useEffect } from "react";
@@ -11,15 +9,11 @@ import FormRadio from "@components/formInput/FormRadio";
 import FormTextArea from "@components/formInput/FormTextArea";
 import usePost from "@hooks/usePost";
 import FormFile from "@components/formInput/FormFile";
-import axios from "axios";
-import useAxios from "@hooks/useAxios";
 
 function PostRegister() {
   const [postForm, setPostForm] = useRecoilState(postFormState);
   const [postFormData, setPostFormData] = useRecoilState(postFormDataState);
   const { data } = useCategory();
-
-  const { requestApi } = useAxios();
 
   const {
     action: { writePostHandler },
@@ -30,28 +24,25 @@ function PostRegister() {
   }, [postForm]);
 
   const onSubmitHandler = async () => {
-    // new Promise((resolve) => {
-    const formData = new FormData();
-    const { file, ...rest } = postForm;
+    new Promise((resolve) => {
+      const formData = new FormData();
+      const { file, ...rest } = postForm;
 
-    formData.append(
-      "request",
-      // JSON.stringify(rest)
-      new Blob([JSON.stringify(rest)], { type: "application/json" })
-    );
-    for (let list of file) {
-      formData.append("file", list);
-    }
+      formData.append(
+        "request",
+        new Blob([JSON.stringify(rest)], { type: "application/json" })
+      );
 
-    await requestApi("post", "/api/v1/post/write", formData, {
-      "Content-Type": "multipart/form-data",
+      if (file) {
+        for (let list of file) {
+          formData.append("file", list);
+        }
+      }
+      resolve(setPostFormData(formData));
+    }).then(() => {
+      console.log(postFormData);
+      writePostHandler();
     });
-
-    // resolve(setPostFormData(formData));
-    // }).then(() => {
-    // console.log(postFormData);
-    // writePostHandler();
-    // });
   };
 
   return (
@@ -74,7 +65,8 @@ function PostRegister() {
       <FormRadio
         desc={"목표 카테고리"}
         list={data?.categoryListValue}
-        name="category"
+        name="categoryId"
+        setValue={setPostForm}
       />
       <FormInput
         name="datail"
@@ -91,17 +83,8 @@ function PostRegister() {
       <FormFile name="file" setValue={setPostForm} />
 
       <button onClick={onSubmitHandler}>등록하기</button>
-      {/* <Editor setValue={setPostForm} /> */}
     </SWrap>
   );
 }
 
 export default PostRegister;
-
-// private String title;
-// private String content;
-// private Member member;
-// private Category category;
-// private String detail;
-// private LocalDate startedAt;
-// private LocalDate endedAt;

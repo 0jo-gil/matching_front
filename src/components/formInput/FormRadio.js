@@ -7,7 +7,14 @@ const FormRadio = ({
   label = undefined,
   name = "",
   list = [],
+  setValue,
 }) => {
+  const onChangeHandler = (e, id) => {
+    setValue((prev) => ({
+      ...prev,
+      [name]: id,
+    }));
+  };
   return (
     <SFormWrap>
       {desc && <SDescText>{desc}</SDescText>}
@@ -19,6 +26,7 @@ const FormRadio = ({
                 type="radio"
                 name={name}
                 id={`${name}-${item.id}`}
+                onChange={(e) => onChangeHandler(e, item.id)}
               ></SInputRadio>
               <SRadioLabel htmlFor={`${name}-${item.id}`}>
                 {item.categoryName}

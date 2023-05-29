@@ -20,7 +20,7 @@ const useCategory = () => {
       onSuccess: (response) => {
         if (!response) return;
         const { data } = response;
-        setCategoryListValue([...response]);
+        setCategoryListValue([...data]);
       },
       onError: (err) => {
         console.log(err);

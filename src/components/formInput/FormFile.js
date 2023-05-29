@@ -4,8 +4,6 @@ function FormFile({ name, value, label, type, setValue }) {
   const onChangeHandler = useCallback(
     (e) => {
       let fileList = e.target.files;
-      console.log(fileList);
-
       let newFiles = [];
       Array.from(fileList).forEach((file) => newFiles.push(file));
 

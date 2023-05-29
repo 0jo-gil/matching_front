@@ -6,7 +6,7 @@ const postFormData = {
   startedAt: "",
   endedAt: "",
   detail: "", // 목표
-  // category: 2,
+  categoryId: null,
   file: null,
 };
 

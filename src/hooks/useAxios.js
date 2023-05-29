@@ -81,12 +81,11 @@ const useAxios = () => {
 
     method === METHOD.GET
       ? (params = { params: JSON.stringify(data) })
-      : (params = { data: data });
-    // : (params = { data: JSON.stringify(data) });
+      : (params = {
+          data: data instanceof FormData ? data : JSON.stringify(data),
+        });
 
     if (!data) params = {};
-
-    console.log(params);
 
     const axiosParams = {
       method,
