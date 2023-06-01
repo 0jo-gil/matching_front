@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { SwiperSlide, Swiper } from "swiper/react";
+import { SPagSubTitle, STabList, STabWrap } from "@styled/common";
 import usePopup from "@hooks/usePopup";
 import useTab from "@hooks/useTab";
-import { STabList, STabWrap } from "@styled/common";
 import useCategory from "@hooks/useCategory";
 import FormRadio from "@components/formInput/FormRadio";
 import usePost from "@hooks/usePost";
+import ThumbnailCard from "@components/thumbnailCard/ThumbnailCard";
+import "swiper/css";
 
 const mainTabList = [
   {
@@ -55,55 +58,33 @@ const Main = () => {
 
       <Outlet />
 
+      <SPagSubTitle>챌린지 인기 카테고리</SPagSubTitle>
       <FormRadio
         list={data?.categoryListValue}
         name="categoryId"
         setValue={setCategoryId}
       />
-
-      {postByCategoryList?.map((item, index) => (
-        <div>
-          <div className="img">
-            <img src={item.photoList[0]} alt="썸네일 이미지" />
-          </div>
-          <div className="title">
-            <p>{item.title}</p>
-          </div>
-        </div>
-      ))}
+      <Swiper slidesPerView={4.5} spaceBetween={20}>
+        {postByCategoryList?.length > 0 ? (
+          <>
+            {postByCategoryList?.map((item, index) => (
+              <SwiperSlide>
+                <ThumbnailCard
+                  id={item.id}
+                  title={item.title}
+                  category={item.categoryName}
+                  src={item.photoList[0]}
+                  count={item.participateCount}
+                />
+              </SwiperSlide>
+            ))}
+          </>
+        ) : (
+          <p>해당 카테고리 리스트가 없습니다.</p>
+        )}
+      </Swiper>
     </div>
   );
 };
 
 export default Main;
-
-// author
-// :
-// null
-// categoryName
-// :
-// "개발"
-// content
-// :
-// "테스트 내용"
-// createdAt
-// :
-// "2023-05-10T21:15:58.310679"
-// endedAt
-// :
-// "2023-05-31"
-// id
-// :
-// 1
-// photoList
-// :
-// ["https://mymatching.s3.ap-northeast-2.amazonaws.com/1d095ef1-0c2c-4528-9393-a95cc703c833.png",…]
-// plan
-// :
-// null
-// startedAt
-// :
-// "2023-05-09"
-// title
-// :
-// "테스트 제목"

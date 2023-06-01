@@ -13,7 +13,7 @@ export const SRadioLabel = styled.label`
   font-size: 14px;
   color: #000;
   padding: 0.6vw 2vw;
-  border: 1px solid #aaa;
+  border: 1px solid #ffb8c0;
   border-radius: 2vw;
 
   &:not(:last-of-type) {
@@ -26,7 +26,7 @@ export const SInputRadio = styled.input`
 
   &:checked {
     + label {
-      background: #000;
+      background: #ff3f56;
       color: #fff;
     }
   }

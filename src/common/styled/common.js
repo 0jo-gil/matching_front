@@ -10,6 +10,13 @@ export const SPageTitle = styled.h2`
   font-weight: 700;
 `;
 
+export const SPagSubTitle = styled.h3`
+  font-size: 16px;
+  color: #000;
+  font-weight: 700;
+  margin-bottom: 10px;
+`;
+
 // nav tab
 export const STabWrap = styled.div`
   width: 100%;
@@ -25,6 +32,20 @@ export const STabList = styled.div`
 
 export const SFlexBox = styled.div`
   display: flex;
+`;
+export const SColFlexBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+`;
+
+export const SInlineBoxWrap = styled.div`
+  > div {
+    display: inline-block;
+  }
 `;
 
 // animation

@@ -4,6 +4,7 @@ import { ACCESS_TOKEN_KEY } from "@utils/constant";
 import useReissue from "./useReissue";
 import useAuthentication from "./useAuthentication";
 import API_URL from "@services/constants";
+import { useNavigate } from "react-router-dom";
 
 export const METHOD = {
   GET: "get",
@@ -23,6 +24,7 @@ const headersConfig = {
 const useAxios = () => {
   const client = axios.create();
   const { USER } = API_URL;
+  const navigator = useNavigate();
 
   // // 요청
   client.interceptors.request.use(
@@ -45,36 +47,38 @@ const useAxios = () => {
   );
 
   // // 토큰 에러 시 재인증 요청
-  // client.interceptors.response.use(
-  //   (response) => {
-  //     if (response) {
-  //       localStorage.setItem(ACCESS_TOKEN_KEY, response?.data?.accessToken);
-  //     }
+  client.interceptors.response.use(
+    (response) => {
+      if (response.config.url.includes(USER.SIGNIN)) {
+        localStorage.setItem(ACCESS_TOKEN_KEY, response?.data?.accessToken);
+      }
 
-  //     const { data } = client.post(USER.REISSUE);
-  //     console.log(client.post(USER.REISSUE));
-  //     return response;
-  //   },
-  //   async (error) => {
-  //     const {
-  //       config,
-  //       response: { status },
-  //     } = error;
+      // const { data } = client.post(USER.REISSUE);
+      return response;
+    },
+    async (error) => {
+      const {
+        config,
+        response: { status },
+      } = error;
 
-  //     if (status === 401) {
-  //       // 토큰 재발행 로직 수정 필요
+      if (status === 500) {
+        navigator("/auth/login");
+      }
+      // if (status === 401) {
+      //   // 토큰 재발행 로직 수정 필요
 
-  //       // const { data } = client.post(USER.REISSUE);
-  //       // config.headers.Authorization = `bearer ${data?.accessToken}`;
+      //   // const { data } = client.post(USER.REISSUE);
+      //   // config.headers.Authorization = `bearer ${data?.accessToken}`;
 
-  //       // setAccessToken(data?.accessToken);
+      //   // setAccessToken(data?.accessToken);
 
-  //       return client(config);
-  //     }
+      //   return client(config);
+      // }
 
-  //     return Promise.reject(error);
-  //   }
-  // );
+      return Promise.reject(error);
+    }
+  );
 
   const requestApi = useCallback(async (method, url, data, header = {}) => {
     let params = {};
