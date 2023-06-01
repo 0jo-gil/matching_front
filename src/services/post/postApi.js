@@ -18,9 +18,15 @@ const usePostApi = () => {
     queryFn: (params) => requestApi(METHOD.GET, POST.DETAIL(params)),
   };
 
+  const getPostByCategoryCount = {
+    key: "getPostByCategoryCount",
+    queryFn: (params) => requestApi(METHOD.GET, POST.POPULAR_POST, params),
+  };
+
   return {
     writePost,
     getDetailPost,
+    getPostByCategoryCount,
   };
 };
 

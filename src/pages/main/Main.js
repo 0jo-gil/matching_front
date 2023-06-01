@@ -3,6 +3,9 @@ import { Link, Outlet } from "react-router-dom";
 import usePopup from "@hooks/usePopup";
 import useTab from "@hooks/useTab";
 import { STabList, STabWrap } from "@styled/common";
+import useCategory from "@hooks/useCategory";
+import FormRadio from "@components/formInput/FormRadio";
+import usePost from "@hooks/usePost";
 
 const mainTabList = [
   {
@@ -22,6 +25,12 @@ const mainTabList = [
 const Main = () => {
   const { showPopup } = usePopup();
   const { currentItem, changeItem } = useTab(0, mainTabList);
+
+  const { data } = useCategory();
+  const {
+    data: { postByCategoryList },
+    action: { setCategoryId },
+  } = usePost();
 
   const popupHandler = () => {
     showPopup({
@@ -46,10 +55,55 @@ const Main = () => {
 
       <Outlet />
 
-      {/* <button onClick={popupHandler}>글쓰기</button>
-      <button onClick={logoutHandler}>로그아웃</button> */}
+      <FormRadio
+        list={data?.categoryListValue}
+        name="categoryId"
+        setValue={setCategoryId}
+      />
+
+      {postByCategoryList?.map((item, index) => (
+        <div>
+          <div className="img">
+            <img src={item.photoList[0]} alt="썸네일 이미지" />
+          </div>
+          <div className="title">
+            <p>{item.title}</p>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
 
 export default Main;
+
+// author
+// :
+// null
+// categoryName
+// :
+// "개발"
+// content
+// :
+// "테스트 내용"
+// createdAt
+// :
+// "2023-05-10T21:15:58.310679"
+// endedAt
+// :
+// "2023-05-31"
+// id
+// :
+// 1
+// photoList
+// :
+// ["https://mymatching.s3.ap-northeast-2.amazonaws.com/1d095ef1-0c2c-4528-9393-a95cc703c833.png",…]
+// plan
+// :
+// null
+// startedAt
+// :
+// "2023-05-09"
+// title
+// :
+// "테스트 제목"

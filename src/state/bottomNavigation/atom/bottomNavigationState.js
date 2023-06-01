@@ -8,7 +8,7 @@ const bottomNaviList = [
     iconSrc: "",
   },
   {
-    name: "리스트",
+    name: "챌린지",
     src: "/post",
     iconSrc: "",
   },
